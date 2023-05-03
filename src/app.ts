@@ -13,6 +13,7 @@ import express from 'express';
     res.status(200).send({ 
       message: "Showing Test Page",
       port: PORT,
+      test: 'asdasd',
     })
   );
 
