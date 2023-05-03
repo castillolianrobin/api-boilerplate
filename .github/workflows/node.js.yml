@@ -71,7 +71,7 @@ jobs:
           target: /home/ec2-user/${{ env.APP_DIR }}
           exclude: /node_modules/, /src/, /.git/, /.github/, .gitignore, README.md
           script_after: |
-            cd /home/ec2-user/${{ env.APP_NAME }}
+            cd /home/ec2-user/${{ env.APP_DIR }}
             npm install --production
             npm run migrate
             sudo pm2 restart app
