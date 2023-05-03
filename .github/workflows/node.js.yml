@@ -18,11 +18,12 @@ env:
   DB_USER: ${{ secrets.DATABASE_USER }}
   DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
   DB_NAME: ${{ secrets.DATABASE_NAME }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
