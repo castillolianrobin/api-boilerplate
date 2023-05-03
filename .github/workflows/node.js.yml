@@ -43,7 +43,7 @@ jobs:
           source: ./dist
           target: /var/www/${{ env.APP_NAME }}
           script: |
-            cd /var/www/${{ env.APP_NAME }}
+            cd /home/ec2-user/${{ env.APP_NAME }}
             npm install --production
             pm2 restart ecosystem.config.js --env ${NODE_ENV}
 
