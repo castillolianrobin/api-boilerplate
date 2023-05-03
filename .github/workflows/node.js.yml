@@ -33,33 +33,6 @@ jobs:
 
       - name: Build TypeScript code
         run: npm run build
-        
-        
-      - uses: actions/checkout@v2
-      - name: Create env file
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const fs = require('fs');
-            const { env } = process;
-            const content = `APP_NAME=${env.APP_NAME}\nAPP_PORT=${env.APP_PORT}\nDB_HOST=${env.DB_HOST}\nDB_PORT=${env.DB_PORT}\nDB_USER=${env.DB_USER}\nDB_PASSWORD=${env.DB_PASSWORD}\nDB_NAME=${env.DB_NAME}`;
-            fs.writeFileSync('.env', content);
-        env:
-          API_URL: ${{ secrets.API_URL }}
-          API_KEY: ${{ secrets.API_KEY }}
-          # APP VARIABLES
-          APP_NAME: ${{ secrets.APP_NAME }}
-          APP_PORT: ${{ secrets.APP_PORT }}
-          # DATABASE VARIABLES
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-
-      - name: Use env file
-        run: |
-          cat .env
 
       - name: Copy files to server
         uses: easingthemes/ssh-deploy@v4.1.8
