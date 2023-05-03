@@ -12,6 +12,7 @@ import express from 'express';
    app.get("/test", (req, res) =>
     res.status(200).send({ 
       message: "Showing Test Page",
+      port: PORT,
     })
   );
 
