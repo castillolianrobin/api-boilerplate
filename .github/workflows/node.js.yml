@@ -6,8 +6,8 @@ on:
 
 env:
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-  SSH_HOST: ${{ secrets.SSH_HOST }}
+  REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+  REMOTE_HOST: ${{ secrets.SSH_HOST }}
   APP_NAME: ${{ secrets.APP_NAME }}
   APP_PORT: 8080
   NODE_ENV: production
