@@ -73,7 +73,5 @@ jobs:
           script_after: |
             cd /home/ec2-user/${{ env.APP_NAME }}
             npm install --production
+            npm run migrate
             pm2 restart ecosystem.config.js --env ${NODE_ENV}
-
-      - name: Run migrations
-        run: npm run migrate
