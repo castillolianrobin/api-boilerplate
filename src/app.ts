@@ -1,5 +1,5 @@
-import express from 'express';
 import 'dotenv/config';
+import express from 'express';
 
 (async () => {
   const app = express();
@@ -12,7 +12,8 @@ import 'dotenv/config';
   //default catch-all route that sends a JSON response.
   app.get("*", (req, res) =>
     res.status(401).send({ 
-      message: "You're lost." 
+      message: "Welcome to CompAPI",
+      version: '0.0.1', 
     })
   );
   
