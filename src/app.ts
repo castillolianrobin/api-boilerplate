@@ -19,6 +19,7 @@ import express from 'express';
   //default catch-all route that sends a JSON response.
   app.get("*", (req, res) =>
     res.status(401).send({ 
+      app: process.env.APP_NAME || 'app name', 
       message: "Welcome to CompAPI",
       version: '0.0.1', 
     })
