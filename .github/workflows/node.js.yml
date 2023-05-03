@@ -1,0 +1,54 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SERVER_HOST: example.com
+  SERVER_PORT: 22
+  SERVER_USER: ubuntu
+  APP_DIR: /home/ubuntu/app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install PM2 process manager
+        run: sudo npm install -g pm2
+
+      - name: Copy SSH private key
+        run: echo "$SSH_PRIVATE_KEY" > ssh_key.pem && chmod 600 ssh_key.pem
+
+      - name: Deploy code to server
+        uses: easingthemes/ssh-deploy@v2.3.2
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          source: .
+          server: ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.APP_DIR }}
+          args: "-rltgoDzvO --delete"
+      
+      - name: Install dependencies on server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh_key.pem $SERVER_USER@$SERVER_HOST "cd $APP_DIR && npm ci --production"
+
+      - name: Start app with PM2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh_key.pem $SERVER_USER@$SERVER_HOST "cd $APP_DIR && pm2 start dist/server.js --name my-app --env NODE_ENV=production"
+
+      - name: Reload PM2 processes
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ssh_key.pem $SERVER_USER@$SERVER_HOST "pm2 reload my-app"
