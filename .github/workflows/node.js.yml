@@ -40,11 +40,10 @@ jobs:
           key: ${{ env.SSH_PRIVATE_KEY }}
           username: ${{ env.SSH_USERNAME }}
           host: ${{ env.SSH_HOST }}
-          source: ./ /dist
+          source: ./
           target: /home/ec2-user/${{ env.APP_NAME }}
           exclude: /node_modules/, /src/, /.git/, /.github/, .gitignore, README.md
           script_after: |
             cd /home/ec2-user/${{ env.APP_NAME }}
             npm install --production
             npm run migrate
-            sudo pm2 restart app
