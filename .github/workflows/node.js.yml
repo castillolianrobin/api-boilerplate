@@ -1,0 +1,50 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_PORT: 8080
+  NODE_ENV: production
+  # DATABASE VARIABLES
+  DB_HOST: ${{ secrets.DATABASE_HOST }}
+  DB_PORT: ${{ secrets.DATABASE_PORT }}
+  DB_USER: ${{ secrets.DATABASE_USER }}
+  DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  DB_NAME: ${{ secrets.DATABASE_NAME }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript code
+        run: npm run build
+
+      - name: Copy files to server
+        uses: easingthemes/ssh-deploy@v4.1.8
+        with:
+          key: ${{ env.SSH_PRIVATE_KEY }}
+          username: ${{ env.SSH_USERNAME }}
+          host: ${{ env.SSH_HOST }}
+          source: ./dist
+          target: /var/www/${{ env.APP_NAME }}
+          script: |
+            cd /var/www/${{ env.APP_NAME }}
+            npm install --production
+            pm2 restart ecosystem.config.js --env ${NODE_ENV}
+
+      - name: Run migrations
+        run: npx mikro-orm migration:up
