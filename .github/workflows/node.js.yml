@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           host: ${{ env.SSH_HOST }}
           source: ./dist
-          target: /var/www/${{ env.APP_NAME }}
+          target: /home/ec2-user/${{ env.APP_NAME }}
           script: |
             cd /home/ec2-user/${{ env.APP_NAME }}
             npm install --production
