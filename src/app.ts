@@ -1,6 +1,5 @@
-require('dotenv').config();
-
 import express from 'express';
+import 'dotenv/config';
 
 (async () => {
   const app = express();
