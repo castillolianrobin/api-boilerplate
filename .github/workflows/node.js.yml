@@ -69,11 +69,9 @@ jobs:
           host: ${{ env.SSH_HOST }}
           source: ./
           target: /home/ec2-user/${{ env.APP_NAME }}
-          exclude: /node_modules/, /src/, /.git
+          exclude: /node_modules/, /src/, /.git/, /.github/, .gitignore, README.md
           script_after: |
             cd /home/ec2-user/${{ env.APP_NAME }}
             npm install --production
+            npm run migrate
             pm2 restart ecosystem.config.js --env ${NODE_ENV}
-
-      - name: Run migrations
-        run: npx mikro-orm migration:up
