@@ -16,14 +16,6 @@ import cors from 'cors';
   // Initialize All Routers
   router(app);
 
-  app.get("/test", (req, res) =>{
-    res.status(200).send({ 
-      message: "Showing Test Page",
-      port: PORT,
-      test: 'asdasd',
-    })
-  });
-
   //default catch-all route that sends a JSON response.
   app.get("*", (req, res) =>
     res.status(401).send({ 
