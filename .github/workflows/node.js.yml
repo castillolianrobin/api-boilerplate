@@ -28,7 +28,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - uses: actions/checkout@v2
       - name: Create env file
         uses: actions/github-script@v4
         with:
@@ -61,13 +60,13 @@ jobs:
       - name: Build TypeScript code
         run: npm run build
 
-      - name: Copy files to server
+      - name: Deploy to server
         uses: easingthemes/ssh-deploy@v4.1.8
         with:
           key: ${{ env.SSH_PRIVATE_KEY }}
           username: ${{ env.SSH_USERNAME }}
           host: ${{ env.SSH_HOST }}
-          source: ./
+          source: ./ dist/
           target: /home/ec2-user/${{ env.APP_DIR }}
           exclude: /node_modules/, /src/, /.git/, /.github/, .gitignore, README.md
           script_after: |
