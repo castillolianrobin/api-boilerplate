@@ -6,12 +6,14 @@ import cors from 'cors';
   const app = express();
   const PORT = process.env.APP_PORT || '8081';
   
+  // CORS: * Enabled
+  app.use(cors({
+    origin: '*',
+  }));
+
   //parse incoming requests data;
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  
-  // CORS: * Enabled
-  app.use(cors())
 
   // Initialize All Routers
   router(app);
