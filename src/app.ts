@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
-
+import router from './router';
+import cors from 'cors';
 (async () => {
   const app = express();
   const PORT = process.env.APP_PORT || '8081';
@@ -9,15 +10,20 @@ import express from 'express';
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   
-   app.get("/test", (req, res) =>
+  // CORS: * Enabled
+  app.use(cors())
+
+  // Initialize All Routers
+  router(app);
+
+  app.get("/test", (req, res) =>{
     res.status(200).send({ 
       message: "Showing Test Page",
       port: PORT,
       test: 'asdasd',
     })
-  );
+  });
 
-  
   //default catch-all route that sends a JSON response.
   app.get("*", (req, res) =>
     res.status(401).send({ 
