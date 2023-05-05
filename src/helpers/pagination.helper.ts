@@ -1,6 +1,6 @@
 import { FilterQuery, FindOptions, EntityName } from '@mikro-orm/core'
 import { EntityManager } from "@mikro-orm/core/EntityManager"
-import getOrm from "../orm";
+import getOrm from "../services/mikro-orm/orm";
 
 export async function findAndPaginate<Entity extends object, Hint extends string>
 (
@@ -26,9 +26,9 @@ export async function findAndPaginate<Entity extends object, Hint extends string
   return {
     total: data[1],
     data: data[0],
-    per_page: limit,
-    current_page: page,
-    last_page: Math.ceil(data[1]/limit),
+    perPage: limit,
+    currentPage: page,
+    lastPage: Math.ceil(data[1]/limit),
     from: !data[0].length ? 0 : offset + 1,
     to: !data[0].length ? 0 : offset + data[0].length + 1,
   };

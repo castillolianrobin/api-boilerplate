@@ -2,6 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 import router from './router';
 import cors from 'cors';
+import { jwtStrategy } from './services/passport/localStrategy';
+
+
 (async () => {
   const app = express();
   const PORT = process.env.APP_PORT || '8081';
@@ -38,6 +41,6 @@ import cors from 'cors';
   
   // Runner
   app.listen(PORT, ()=> {
-    console.log(`\x1b[33m --Server running at Port ${PORT}-- \x1b[0m`);
+    console.log(`\x1b[33m --Server running at Port ${PORT} | ${process.env.NODE_ENV}-- \x1b[0m`);
   });
 })();

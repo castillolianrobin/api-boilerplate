@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import getOrm from '../orm';
+import getOrm from '../services/mikro-orm/orm';
 
 export abstract class APIController {
   protected async json(res: Response, data: any, status = 200): Promise<void> {
