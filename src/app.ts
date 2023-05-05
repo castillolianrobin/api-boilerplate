@@ -7,9 +7,7 @@ import cors from 'cors';
   const PORT = process.env.APP_PORT || '8081';
   
   // CORS: * Enabled
-  app.use(cors({
-    origin: '*',
-  }));
+  app.use(cors({ origin: '*' }));
 
   //parse incoming requests data;
   app.use(express.json());
@@ -17,6 +15,17 @@ import cors from 'cors';
 
   // Initialize All Routers
   router(app);
+
+
+  function returnWorldRoutes () {
+    return express
+      .Router()
+      .get('/', (req, res) => {
+        res.status(500).send('Testing for liana')    
+      })
+      .get('/test', (_, req)=>req.send('tite'))
+ }
+  app.use('/world', returnWorldRoutes())
 
   //default catch-all route that sends a JSON response.
   app.get("*", (req, res) =>

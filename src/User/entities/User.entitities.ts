@@ -1,5 +1,6 @@
-import {  Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import {  Entity, ManyToOne, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { UserType } from './UserType.entities';
+import { UserInfo } from './UserInfo.entities';
 
 @Entity()
 export class User {
@@ -14,6 +15,9 @@ export class User {
   
   @ManyToOne(() => UserType)
   userType!: UserType;
+
+  @OneToOne(() => UserInfo)
+  userInfo?: UserInfo;
 
   @Property({ type: "date" })
   createdAt = new Date();

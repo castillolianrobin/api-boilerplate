@@ -14,10 +14,10 @@ export class UserController extends APIController {
     await this.json(res, user);
   }
 
-  show = async (req: Request, res: Response) => {
+  show = async (req: Request<{ id: number }>, res: Response) => {
     const { id } = req.params;
     const user = await (await this.orm())
-      .findOne(User, { id: +id }, { populate: ['userType'] });
+      .findOne(User, { id }, { populate: ['userType'] });
       
     if (!user) {
       await this.error(res, 'User not found', 404);

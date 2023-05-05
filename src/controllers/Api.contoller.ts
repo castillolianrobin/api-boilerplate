@@ -19,19 +19,19 @@ export abstract class APIController {
     return orm.em.fork();    
   }
 
-  index = async (req: Request, res: Response) => {
+  index = async (req: Request<any>, res: Response) => {
     this.error(res, 'This API endpoint does not exist', 404 );
   }
-  show = async (req: Request, res: Response) => {
+  show = async (req: Request<any>, res: Response) => {
     this.error(res, 'This API endpoint does not exist', 404 );
   }
-  create = async (req: Request, res: Response) => {
+  create = async (req: Request<any>, res: Response) => {
     this.error(res, 'This API endpoint does not exist', 404 );
   }
-  update = async (req: Request, res: Response) => {
+  update = async (req: Request<any>, res: Response) => {
     this.error(res, 'This API endpoint does not exist', 404 );
   }
-  delete = async (req: Request, res: Response) => {
+  delete = async (req: Request<any>, res: Response) => {
     this.error(res, 'This API endpoint does not exist', 404 );
   }
 }
