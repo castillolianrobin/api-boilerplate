@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { APIController } from './Api.contoller';
+import { APIController } from '../../controllers/Api.contoller';
 import { User } from '../entities/User.entitities';
-import { findAndPaginate } from '../../helpers/pagination.helper';
 import { UserType } from '../entities/UserType.entities';
+import { findAndPaginate } from '../../helpers/pagination.helper';
 
 export class UserController extends APIController {
   index = async (req: Request, res: Response) => {
@@ -17,8 +17,8 @@ export class UserController extends APIController {
   show = async (req: Request, res: Response) => {
     const { id } = req.params;
     const user = await (await this.orm())
-      .findOne(User, { id: +id });
-    
+      .findOne(User, { id: +id }, { populate: ['userType'] });
+      
     if (!user) {
       await this.error(res, 'User not found', 404);
       return;
@@ -67,4 +67,8 @@ export class UserController extends APIController {
   //   await user.remove();
   //   await this.success(res, 'User deleted successfully');
   // }
+
+  sendID = (_: Request, res: Response) => {
+    res.send('ID is 3')
+  }
 }
