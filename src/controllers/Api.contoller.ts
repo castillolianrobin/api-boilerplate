@@ -6,7 +6,7 @@ export abstract class APIController {
     res.status(status).json(data);
   }
 
-  protected async error(res: Response, message: string, status = 400): Promise<void> {
+  protected async error(res: Response, message: string|string[], status = 400): Promise<void> {
     res.status(status).json({ error: message });
   }
 
