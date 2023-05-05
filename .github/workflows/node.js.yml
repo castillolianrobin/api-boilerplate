@@ -72,5 +72,5 @@ jobs:
           script_after: |
             cd /home/ec2-user/${{ env.APP_DIR }}
             npm install --production
-            npm run migrate
+            npm run migrate:production
             sudo pm2 restart app
