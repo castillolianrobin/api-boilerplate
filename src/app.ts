@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import router from './router';
 import cors from 'cors';
-import { jwtStrategy } from './services/passport/localStrategy';
 
 
 (async () => {
