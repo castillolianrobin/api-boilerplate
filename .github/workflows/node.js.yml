@@ -58,7 +58,7 @@ jobs:
 
 
       - name: Build TypeScript code
-        run: npm run build
+        run: NODE_ENV=production npm run build
 
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@v4.1.8
