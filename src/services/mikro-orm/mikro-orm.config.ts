@@ -12,8 +12,8 @@ const config: Options = {
   dbName: process.env.DB_NAME,
   debug: process.env.NODE_ENV !== 'production',
   migrations: {
-    path: './dist/mikro-orm.config.js',
-    pathTs: './src/mikro-orm.config.ts',
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
   },
   tsNode: process.env.NODE_ENV !== 'production',
 };
