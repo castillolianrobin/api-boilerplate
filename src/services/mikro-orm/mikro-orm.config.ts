@@ -2,8 +2,8 @@ import { Options } from '@mikro-orm/core';
 import ENV from '../../constants/ENV';
 
 const config: Options = {
-  entities: ["dist/**/entities/**/*.js"],
-  entitiesTs: ["src/**/entities/**/*.ts"],
+  entities: ["dist/**/entities/**/*.entity.js"],
+  entitiesTs: ["src/**/entities/**/*.entity.ts"],
   migrations: {
     path: 'dist/migrations',
     pathTs: 'src/migrations',
