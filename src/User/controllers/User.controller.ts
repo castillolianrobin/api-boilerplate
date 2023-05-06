@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
-import { APIController } from '../../controllers/Api.contoller';
-import { User } from '../entities/User.entitities';
-import { UserType } from '../entities/UserType.entities';
+import { CRUDController } from '../../controllers/Api.contoller';
+import { User } from '../entities/User.entity';
+import { UserType } from '../entities/UserType.entity';
 import { findAndPaginate } from '../../helpers/pagination.helper';
+import authHelper from '../helpers/auth.helper';
 
-export class UserController extends APIController {
+export class UserController extends CRUDController {
   index = async (req: Request, res: Response) => {
     const user = await findAndPaginate(
       User, 
@@ -27,7 +28,7 @@ export class UserController extends APIController {
   }
 
   create = async (req: Request, res: Response) => {
-    const { email, password, user_type = 1 } = req.body;
+    const { email, password,  user_type = 1 } = req.body;
     const orm = await this.orm();
     const userType = await orm.findOne(
       UserType, 
@@ -37,7 +38,24 @@ export class UserController extends APIController {
       await this.error(res, 'User type not found', 402);
       return;
     }
-    const user = new User(email, password, userType);
+    // User Authentication
+    
+    const hashedPass = await authHelper.encrypt(password)
+
+    if (!hashedPass?.hashedPassword || !hashedPass?.salt) {
+      return this.error(
+        res, 
+        'There was a problem saving your data. Please try again'
+      );
+    }
+
+    const user = new User({
+      email: email, 
+      password: hashedPass?.hashedPassword, 
+      password_salt: hashedPass?.salt,
+      userType, 
+    })
+    
     await orm.insert(User, user);
     await this.success(res, 'User created successfully' + user.id);
   }

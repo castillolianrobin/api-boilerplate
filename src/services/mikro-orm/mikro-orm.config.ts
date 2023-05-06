@@ -1,21 +1,21 @@
-import { Options, UnderscoreNamingStrategy } from '@mikro-orm/core';
-import { MikroORM } from '@mikro-orm/core';
+import { Options } from '@mikro-orm/core';
+import ENV from '../../constants/ENV';
 
 const config: Options = {
   entities: ["dist/**/entities/**/*.js"],
   entitiesTs: ["src/**/entities/**/*.ts"],
-  type: 'mysql',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || ''),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  dbName: process.env.DB_NAME,
-  debug: process.env.NODE_ENV !== 'production',
   migrations: {
     path: 'dist/migrations',
     pathTs: 'src/migrations',
   },
-  tsNode: process.env.NODE_ENV !== 'production',
+  type: 'mysql',
+  host: ENV.DB_HOST,
+  port: ENV.DB_PORT,
+  user: ENV.DB_USER,
+  password: ENV.DB_PASSWORD,
+  dbName: ENV.DB_NAME,
+  debug: ENV.NODE_ENV !== 'production',
+  tsNode: ENV.NODE_ENV !== 'production',
 };
 
 export default config;

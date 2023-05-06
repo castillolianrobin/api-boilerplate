@@ -12,16 +12,16 @@ export class UserInfo  {
   @Property()
   lastName!: string;
 
-  @Property()
+  @Property({ nullable: true })
   middleName?: string;
 
-  @Property({ type: 'date' })
+  @Property({ type: 'date', nullable: true })
   birthday?: Date;
 
-  contructor(firstName: string, lastName: string, middleName?: string, birthday?: Date) {
+  constructor(firstName: string, lastName: string, middleName?: string, birthday?: Date) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.middleName = middleName;
-    this.birthday = birthday;
+    middleName && (this.middleName = middleName);
+    birthday && (this.birthday = birthday);
   }
 }

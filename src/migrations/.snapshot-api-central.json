@@ -123,8 +123,8 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "category_id_id": {
-          "name": "category_id_id",
+        "product_category_id": {
+          "name": "product_category_id",
           "type": "int",
           "unsigned": true,
           "autoincrement": false,
@@ -176,10 +176,10 @@
         },
         {
           "columnNames": [
-            "category_id_id"
+            "product_category_id"
           ],
           "composite": false,
-          "keyName": "product_category_id_id_index",
+          "keyName": "product_product_category_id_index",
           "primary": false,
           "unique": false
         },
@@ -195,10 +195,10 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "product_category_id_id_foreign": {
-          "constraintName": "product_category_id_id_foreign",
+        "product_product_category_id_foreign": {
+          "constraintName": "product_product_category_id_foreign",
           "columnNames": [
-            "category_id_id"
+            "product_category_id"
           ],
           "localTableName": "product",
           "referencedColumnNames": [
@@ -244,7 +244,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "string"
         },
         "birthday": {
@@ -253,7 +253,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "length": 0,
           "mappedType": "datetime"
         }
@@ -317,6 +317,15 @@
       "name": "user_type",
       "indexes": [
         {
+          "columnNames": [
+            "name"
+          ],
+          "composite": false,
+          "keyName": "user_type_name_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "PRIMARY",
           "columnNames": [
             "id"
@@ -358,6 +367,15 @@
           "nullable": false,
           "mappedType": "string"
         },
+        "password_salt": {
+          "name": "password_salt",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "user_type_id": {
           "name": "user_type_id",
           "type": "int",
@@ -373,8 +391,27 @@
           "unsigned": true,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "integer"
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "string"
+        },
+        "token_expiration": {
+          "name": "token_expiration",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 0,
+          "mappedType": "datetime"
         },
         "created_at": {
           "name": "created_at",
@@ -399,6 +436,15 @@
       },
       "name": "user",
       "indexes": [
+        {
+          "columnNames": [
+            "email"
+          ],
+          "composite": false,
+          "keyName": "user_email_unique",
+          "primary": false,
+          "unique": true
+        },
         {
           "columnNames": [
             "user_type_id"
@@ -451,6 +497,7 @@
             "id"
           ],
           "referencedTableName": "user_info",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }

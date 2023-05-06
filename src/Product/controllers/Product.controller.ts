@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { APIController } from "../../controllers/Api.contoller";
+import { CRUDController } from "../../controllers/Api.contoller";
 import { findAndPaginate } from "../../helpers/pagination.helper";
 import { Product } from "../entities/Product.entity";
 import { ProductCategory } from "../entities/ProductCategory.entity";
 
-export class ProductController extends APIController {
+export class ProductController extends CRUDController {
 	index = async (req: Request, res: Response) => {
 		const product = await findAndPaginate(
 			Product,

@@ -1,0 +1,60 @@
+{"data":{"email":["Required"]},"level":"error","message":"There was a problem with your request","timestamp":"Sat, 06 May 2023 11:34:59 GMT"}
+{"0":"2023-05-06T11:36:14.553Z","1":{"email":["Required"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T11:36:14.935Z","1":{"email":["Required"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T11:36:15.287Z","1":{"email":["Required"]},"level":"error","message":"There was a problem with your request"}
+{"level":"error","message":"404"}
+{"level":"error","message":"404"}
+{"level":"error","message":"404"}
+{"level":"error","message":"404"}
+{"level":"error","message":"404","url":"/asdasds"}
+{"level":"error","message":"404","url":"/asdasds"}
+{"level":"error","message":"404","url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/asdasds"}
+{"0":"2023-05-06T11:58:09.188Z","level":"error","message":"User does not exists"}
+{"0":"2023-05-06T12:05:09.077Z","1":{"email":["Required"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T12:05:16.602Z","1":{"email":["Required"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T12:05:24.492Z","1":null,"level":"error","message":"User already exists"}
+{"0":"2023-05-06T17:21:24.362Z","1":[],"level":"error","message":"Login Failed"}
+{"0":"2023-05-06T17:22:12.952Z","1":[],"level":"error","message":"Login Failed"}
+{"0":"2023-05-06T17:22:45.746Z","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:22:47.914Z","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:22:54.380Z","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:22:55.533Z","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:22:56.850Z","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:45:07.994Z","1":"zzxcascdwa","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:45:12.421Z","1":"asadadad","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:46:08.482Z","1":"{\n    __v_isShallow: false,\n    dep: { w: 0, n: 0 },\n    __v_isRef: true,\n    _rawValue: 'asdad@gmail.com',\n    _value: 'asdad@gmail.com'\n  }","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:46:13.153Z","1":"{\n    __v_isShallow: false,\n    dep: { w: 0, n: 0 },\n    __v_isRef: true,\n    _rawValue: 'asdad@gmail.com',\n    _value: 'asdad@gmail.com'\n  }","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:46:22.805Z","level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:46:30.060Z","1":"{\n    __v_isShallow: false,\n    dep: { w: 0, n: 0 },\n    __v_isRef: true,\n    _rawValue: 'asdad@gmail.com',\n    _value: 'asdad@gmail.com'\n  }","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:46:36.318Z","1":"asdasdas","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:49:42.940Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:50:12.147Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:50:14.001Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:53:56.019Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:55:23.972Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T17:57:27.101Z","1":"asdasdas","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T17:57:29.235Z","1":"asdasdas","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T18:03:57.163Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T18:04:41.001Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T18:04:43.788Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T18:04:48.932Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T18:04:52.791Z","1":{"__v_isRef":true,"__v_isShallow":false,"_rawValue":"asdad@gmail.com","_value":"asdad@gmail.com","dep":{"n":0,"w":0}},"level":"error","message":"Missing credentials"}
+{"0":"2023-05-06T18:05:06.517Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T18:05:09.817Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T18:05:17.044Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-06T18:47:33.248Z","1":null,"level":"error","message":"User already exists"}
+{"0":"2023-05-06T18:47:50.015Z","1":null,"level":"error","message":"User already exists"}
+{"0":"2023-05-06T18:48:15.572Z","1":{"email":["Invalid email"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T18:48:43.909Z","1":{"email":["Invalid email"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T18:51:02.413Z","1":{"email":["Invalid email"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T18:51:05.568Z","1":{"email":["Invalid email"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T18:51:06.310Z","1":{"email":["Invalid email"]},"level":"error","message":"There was a problem with your request"}
+{"0":"2023-05-06T18:51:35.794Z","1":null,"level":"error","message":"User already exists"}
+{"0":"2023-05-06T18:51:38.208Z","1":null,"level":"error","message":"User already exists"}
+{"0":"2023-05-06T18:52:06.351Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}

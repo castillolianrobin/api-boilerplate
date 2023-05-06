@@ -5,7 +5,7 @@ export class UserType {
   @PrimaryKey()
   id!: number;
 
-  @Property({ nullable: false })
+  @Property({ nullable: false,  unique: true})
   name!: string;
 
   @Property({ type: "date" })

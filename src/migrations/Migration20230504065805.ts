@@ -5,7 +5,6 @@ export class Migration20230504065805 extends Migration {
   async up(): Promise<void> {
     this.addSql('create table `user_type` (`id` int unsigned not null auto_increment primary key, `name` varchar(255) not null, `created_at` datetime not null, `updated_at` datetime not null) default character set utf8mb4 engine = InnoDB;');
     // Add prefilled user types
-    const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
     this.addSql(`INSERT INTO user_type (name, created_at, updated_at) VALUES ('member', now(), now())`);
     this.addSql(`INSERT INTO user_type (name, created_at, updated_at) VALUES ('admin', now(), now())`);
 
