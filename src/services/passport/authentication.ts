@@ -10,6 +10,7 @@ import { User } from '../../User/entities/User.entity';
 // env
 import ENV from '../../constants/ENV';
 import authHelper from '../../User/helpers/auth.helper';
+import { Request, Response } from 'express';
 
 
 // passport reference
@@ -26,6 +27,16 @@ export function generateJwtToken(user: User): string {
 }
 
 
+// Beater Token Middleware
+export function authMiddleware() {
+  return passport.authenticate('jwt', { session: false })
+}
+
+export function login(req: Request, res: Response, calback: (err: any, user: User, info: { message: string })=>void) {
+  return passport.authenticate('local', calback)(req, res);
+}
+
+
 /** JWT Authentication (Bearer Token) */
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -33,8 +44,8 @@ const options = {
 };
 passport.use(new JwtStrategy(options, async (payload, done) => {
   try {
-    const orm = await getOrm();
-    const user = await orm.em.findOne(User, { id: payload.sub });
+    const orm = (await getOrm()).em.fork();
+    const user = await orm.findOne(User, { id: payload.id });
     if (user) {
       return done(null, user);
     } else {

@@ -58,3 +58,13 @@
 {"0":"2023-05-06T18:51:35.794Z","1":null,"level":"error","message":"User already exists"}
 {"0":"2023-05-06T18:51:38.208Z","1":null,"level":"error","message":"User already exists"}
 {"0":"2023-05-06T18:52:06.351Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T06:04:50.761Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T06:04:51.686Z","1":"asdad@gmail.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T12:29:12.987Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T12:29:37.905Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T13:25:16.262Z","1":"test@email.com","level":"error","message":"Missing credentials"}
+{"0":"2023-05-08T13:25:24.647Z","1":"test@email.com","level":"error","message":"Missing credentials"}
+{"0":"2023-05-08T13:26:09.748Z","1":"test@email.com","level":"error","message":"Missing credentials"}
+{"0":"2023-05-08T13:26:26.270Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T13:26:58.706Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
+{"0":"2023-05-08T13:33:55.440Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}

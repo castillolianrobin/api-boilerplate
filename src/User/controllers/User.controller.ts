@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { CRUDController } from '../../controllers/Api.contoller';
-import { User } from '../entities/User.entity';
-import { UserType } from '../entities/UserType.entity';
-import { findAndPaginate } from '../../helpers/pagination.helper';
+// Entities
+import { User, UserType } from '../entities';
+// Helper
 import authHelper from '../helpers/auth.helper';
+import { findAndPaginate } from '../../helpers/pagination.helper';
 
 export class UserController extends CRUDController {
   index = async (req: Request, res: Response) => {

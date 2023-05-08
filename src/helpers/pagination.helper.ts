@@ -26,8 +26,8 @@ export async function findAndPaginate<Entity extends object, Hint extends string
   return {
     total: data[1],
     data: data[0],
-    perPage: limit,
-    currentPage: page,
+    perPage: +limit,
+    currentPage: +page,
     lastPage: Math.ceil(data[1]/limit),
     from: !data[0].length ? 0 : offset + 1,
     to: !data[0].length ? 0 : offset + data[0].length + 1,

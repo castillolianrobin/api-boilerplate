@@ -2,18 +2,13 @@ import { Request, Response } from "express";
 import { DriverException  } from '@mikro-orm/core';
 // Base Controller
 import { APIController } from "../../controllers/Api.contoller";
-// Helper
-import authHelper from "../helpers/auth.helper"; 
 // Entities
-import { User } from "../entities/User.entity";
-import { UserInfo } from "../entities/UserInfo.entity";
-import { UserType } from "../entities/UserType.entity";
+import { User, UserInfo, UserType } from "../entities";
 // Services
 import { validate, z } from "../../services/zod/validation";
-import { generateJwtToken } from "../../services/passport/localStrategy";
-import { passport } from "../../services/passport/localStrategy";
-
-
+import { login, passport } from "../../services/passport/authentication";
+// Helper
+import authHelper from "../helpers/auth.helper"; 
 
 export class AuthController extends APIController {
   login = async (req: Request, res: Response) => {
@@ -27,12 +22,12 @@ export class AuthController extends APIController {
       return this.error(res, 'Login Failed', errors);
     
     // Login Validation
-    passport.authenticate('local', (err: any, user: User, info: { message: string })=>{
+    login(req, res, (err, user, info)=>{
       if (err || !user)
         return this.error(res, info.message, data.email);
       else
-        return this.success(res, info.message, { user })
-    })(req, res);
+        return this.success(res, info.message, user)
+    });
   }
 
   register = async (req: Request, res: Response) => {
@@ -59,22 +54,19 @@ export class AuthController extends APIController {
     } 
     
     // User Info
-    const userInfo = new UserInfo(
-      data.firstName,
-      data.lastName,
-      data.middleName,
-      // new Date(data.birthday),
-    )
-    // User Authentication
-    const hashedPass = await authHelper.encrypt(data.password)
-
-    if (!hashedPass?.hashedPassword || !hashedPass?.salt) {
-      return this.error(
-        res, 
-        'There was a problem saving your data. Please try again'
-      );
-    }
+    const userInfo = new UserInfo({ 
+      firstName: data.firstName, 
+      middleName: data.middleName, 
+      lastName: data.lastName, 
+    })
     
+    // Password Hashing
+    const hashedPass = await authHelper.encrypt(data.password)
+    if (!hashedPass?.hashedPassword || !hashedPass?.salt) {
+      const message = 'There was a problem saving your data. Please try again'
+      return this.error(res, message);
+    }
+    // User
     const user = new User({
       email: data.email, 
       password: hashedPass?.hashedPassword, 
@@ -82,6 +74,7 @@ export class AuthController extends APIController {
       userInfo, 
       userType,
     })
+
     // create user 
     try {
       await orm.persistAndFlush(user);
@@ -90,6 +83,7 @@ export class AuthController extends APIController {
       const error = e as DriverException;
       let message = 'A problem occured';
       let data: any = e;
+      // IF already exists
       if (error.code && error?.code === 'ER_DUP_ENTRY') {
         data = null;
         message = 'User already exists'; 
@@ -97,10 +91,4 @@ export class AuthController extends APIController {
       this.error(res, message, data);
     }
   }
-}
-
-/** __TYPE DEFINITION__ */
-
-interface UserRegistration extends User, UserInfo {
- userTypeId: number; 
 }

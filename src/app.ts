@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import router from './router';
 // Services 
-import './services/passport/localStrategy';
+import './services/passport/authentication';
 import { errorHandler, logger } from './services/winston/errorLogger';
 import { STATUS } from './constants';
 

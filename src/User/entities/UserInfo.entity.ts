@@ -18,10 +18,10 @@ export class UserInfo  {
   @Property({ type: 'date', nullable: true })
   birthday?: Date;
 
-  constructor(firstName: string, lastName: string, middleName?: string, birthday?: Date) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    middleName && (this.middleName = middleName);
-    birthday && (this.birthday = birthday);
+  constructor(userInfo: { firstName: string, lastName: string, middleName?: string, birthday?: Date }) {
+    this.firstName = userInfo.firstName;
+    this.lastName = userInfo.lastName;
+    userInfo.middleName && (this.middleName = userInfo.middleName);
+    userInfo.birthday && (this.birthday = userInfo.birthday);
   }
 }
