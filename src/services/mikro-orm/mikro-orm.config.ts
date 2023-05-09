@@ -16,6 +16,7 @@ const config: Options = {
   dbName: ENV.DB_NAME,
   debug: ENV.NODE_ENV !== 'production',
   tsNode: ENV.NODE_ENV !== 'production',
+  cache: { enabled: true, },
 };
 
 export default config;

@@ -12,7 +12,6 @@ import ENV from '../../constants/ENV';
 import authHelper from '../../User/helpers/auth.helper';
 import { Request, Response } from 'express';
 
-
 // passport reference
 export { default as passport } from 'passport';
 
@@ -44,8 +43,13 @@ const options = {
 };
 passport.use(new JwtStrategy(options, async (payload, done) => {
   try {
+    console.log(payload);
     const orm = (await getOrm()).em.fork();
-    const user = await orm.findOne(User, { id: payload.id });
+    const user = await orm.findOne(
+      User, 
+      { id: payload.id },
+      { cache: 1000*60*60 }, //Cache Auth for 1 hour
+    );
     if (user) {
       return done(null, user);
     } else {
