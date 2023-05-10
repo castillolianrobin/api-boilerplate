@@ -6,9 +6,10 @@ import { APIController } from "../../controllers/Api.contoller";
 import { User, UserInfo, UserType } from "../entities";
 // Services
 import { validate, z } from "../../services/zod/validation";
-import { login, passport } from "../../services/passport/authentication";
+import { login, logout, passport } from "../../services/passport/authentication";
 // Helper
 import authHelper from "../helpers/auth.helper"; 
+import { STATUS } from "../../constants";
 
 export class AuthController extends APIController {
   login = async (req: Request, res: Response) => {
@@ -29,6 +30,26 @@ export class AuthController extends APIController {
         return this.success(res, info.message, user)
     });
   }
+
+  logout = async (req: Request, res: Response) => {
+    // Data Validation
+    
+    // Login Validation
+    logout(req, res, async (err, user)=>{
+      if (err || !user)
+        return this.error(res, STATUS.SERVER_ERROR.MESSAGE, {}, STATUS.SERVER_ERROR.CODE);
+      
+      const orm = await this.orm();
+      user.token = '';
+      user.tokenExpiration = undefined;
+      try {
+        await orm.persistAndFlush(user)
+        return this.success(res, 'Logged out successfully', user)
+      } catch (e) {
+        return this.error(res, STATUS.SERVER_ERROR.MESSAGE, {}, STATUS.SERVER_ERROR.CODE);
+      }
+    });
+  } 
 
   register = async (req: Request, res: Response) => {
     // Validation

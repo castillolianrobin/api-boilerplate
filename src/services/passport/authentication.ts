@@ -36,6 +36,10 @@ export function login(req: Request, res: Response, calback: (err: any, user: Use
   return passport.authenticate('local', calback)(req, res);
 }
 
+export function logout(req: Request, res: Response, calback: (err: any, user: User)=>void) {
+  return passport.authenticate('jwt', calback)(req, res);
+}
+
 
 /** JWT Authentication (Bearer Token) */
 const options = {
@@ -44,7 +48,6 @@ const options = {
 };
 passport.use(new JwtStrategy(options, async (payload, done) => {
   try {
-    console.log(payload);
     const orm = (await getOrm()).em.fork();
     const user = await orm.findOne(
       User, 
