@@ -11,16 +11,17 @@ import { User } from '../../User/entities/User.entity';
 import ENV from '../../constants/ENV';
 import authHelper from '../../User/helpers/auth.helper';
 import { Request, Response } from 'express';
+import { logger } from '../winston/errorLogger';
 
 // passport reference
 export { default as passport } from 'passport';
 
 // Create a function to generate a JWT token
-export function generateJwtToken(user: User): string {
+export function generateJwtToken(user: User, remember?: boolean): string {
   const payload = { id: user.id };
   const secret = ENV.JWT_SECRET;
   const options: jwt.SignOptions = {
-    expiresIn: '1h', // Set the token expiration time
+    expiresIn: remember ? '7d' : '1h', // Set the token expiration time
   };
   return jwt.sign(payload, secret, options);
 }
@@ -62,8 +63,11 @@ passport.use(new JwtStrategy(options, async (payload, done) => {
 
 
 /** Local Authentication (Login) */
-passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
-  console.log('logging in')
+passport.use(new LocalStrategy({ 
+  usernameField: 'email', 
+  passwordField: 'password',
+  passReqToCallback:  true, 
+}, async (req, email, password, done) => {
   try {
     const orm = (await getOrm()).em.fork();
     
@@ -80,13 +84,15 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
     if (!isMatch) {      
       return done(null, false, { message: 'Incorrect email or password.' });
     }
-
-    user.token = generateJwtToken(user);
-    user.tokenExpiration = new Date(Date.now() + 60 * 60 * 1000);
-    console.log('HERE@@@@');
+    const remember = req.body.remember;
+    user.token = generateJwtToken(user, remember);
+    user.tokenExpiration = new Date(Date.now() + (60 * 60 * 1000 * (remember ? (24 * 7) : 1)) );
     await orm.persistAndFlush(user);
+    logger.info('Login Attempt Success', req)
     return done(null, user, { message: 'Logged in successfully.' });
   } catch (err) {
+    logger.info('Login Attempt Error', req)
+    logger.error('Login Attempt Error', req)
     return done(err);
   }
 }));
