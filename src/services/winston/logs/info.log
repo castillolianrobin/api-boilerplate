@@ -72,3 +72,11 @@
 {"0":"2023-05-08T13:26:58.706Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
 {"0":"2023-05-08T13:33:55.440Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
 {"0":"2023-05-09T07:06:40.125Z","1":"test@email.com","level":"error","message":"Incorrect email or password."}
+{"body":{},"level":"error","message":"404","query":{},"url":"/favicon.ico"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/user1"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/favicon.ico"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/product1"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/"}
+{"body":{},"level":"error","message":"404","query":{},"url":"/favicon.ico"}
