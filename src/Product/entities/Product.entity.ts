@@ -15,7 +15,7 @@ export class Product {
 	@Property()
 	description?: string;
 
-	@Property()
+	@Property({ nullable: true })
 	photo?: string;
 
 	@Property({ type: "number" })

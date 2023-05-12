@@ -24,7 +24,7 @@ export class ProductController extends CRUDController {
 		);
 
 		if (!product) {
-			await this.success(res, 'Product not found', 204)
+			await this.success(res, 'Product not found', null, 204)
 			return;
 		}
 		await this.json(res, product)
@@ -38,7 +38,7 @@ export class ProductController extends CRUDController {
 			{ id: +product_category }
 		);
 		if (!productCategory) {
-			await this.success(res, 'Product category not found', 204);
+			await this.success(res, 'Product category not found', null, 204);
 			return;
 		}
 		const product = new Product(code, name, description, photo, price, productCategory);
