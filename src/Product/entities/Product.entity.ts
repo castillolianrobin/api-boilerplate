@@ -32,7 +32,7 @@ export class Product {
 		this.createdAt = new Date();
 	}
 
-	@Property({ type: "date", onUpdate: () => new Date() })
+	@Property({ nullable: true, type: "date", onUpdate: () => new Date() })
 	updatedAt?: Date;
 
 	@Property({ nullable: true, type: "date" })

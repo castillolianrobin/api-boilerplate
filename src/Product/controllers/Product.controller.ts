@@ -42,7 +42,7 @@ export class ProductController extends CRUDController {
 			return;
 		}
 		const product = new Product(code, name, description, photo, price, productCategory);
-		await orm.insert(Product, product);
-		await this.success(res, 'Product created successfully', product.id)
+		await orm.persistAndFlush(product);
+		await this.success(res, 'Product created successfully', product)
 	}
 }
