@@ -7,6 +7,8 @@ import router from './router';
 import './services/passport/authentication';
 import { errorHandler, logger } from './services/winston/errorLogger';
 import { STATUS } from './constants';
+import { mailer } from './services/nodemailer/mailer';
+import { emailVerification } from './services/nodemailer/templates';
 
 (async () => {
   const app = express();
@@ -32,9 +34,8 @@ import { STATUS } from './constants';
     });
   });
 
-  
   // Runner
-  app.listen(PORT, ()=> {
+  app.listen(PORT, ()=> { 
     console.log(`\x1b[33m --Server running at Port ${PORT} | ${process.env.NODE_ENV}-- \x1b[0m`);
   });
 })();

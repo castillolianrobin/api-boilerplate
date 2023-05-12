@@ -12,5 +12,5 @@ export function generateAPIResource<T extends CRUDController>(controller: T, rou
     .get('/:id', controller.show)
     .post('/', multer().none(), controller.create)
     .post('/:id/edit', multer().none(), controller.update)
-    .delete('/:id/delete', controller.delete);
+    .post('/:id/delete', controller.delete);
 }

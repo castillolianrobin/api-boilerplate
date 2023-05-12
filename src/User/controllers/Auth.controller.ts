@@ -10,6 +10,7 @@ import { login, logout, passport } from "../../services/passport/authentication"
 // Helper
 import authHelper from "../helpers/auth.helper"; 
 import { STATUS } from "../../constants";
+import { mailer, templates } from "../../services/nodemailer";
 
 export class AuthController extends APIController {
   login = async (req: Request, res: Response) => {
@@ -56,10 +57,12 @@ export class AuthController extends APIController {
     const { data, errors, success } = validate(req.body, z.object({
       email: z.string().email(),
       password: z.string().min(6).max(50),
-      firstName: z.string(),
-      lastName: z.string(),
-      middleName: z.string().optional(),
-      birthday: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      userInfo: z.object({
+        firstName: z.string(),
+        lastName: z.string(),
+        middleName: z.string().optional(),
+        birthday: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      }),
     }));
 
     if (!success)
@@ -76,9 +79,9 @@ export class AuthController extends APIController {
     
     // User Info
     const userInfo = new UserInfo({ 
-      firstName: data.firstName, 
-      middleName: data.middleName, 
-      lastName: data.lastName, 
+      firstName: data.userInfo.firstName, 
+      middleName: data.userInfo.middleName, 
+      lastName: data.userInfo.lastName, 
     })
     
     // Password Hashing
@@ -99,7 +102,25 @@ export class AuthController extends APIController {
     // create user 
     try {
       await orm.persistAndFlush(user);
-      this.success(res, 'Successfully registered', user);
+      var mailOptions = {
+        from: 'admin@gmail.com',
+        to: user.email,
+        subject: 'Email Verification',
+        html: templates.emailVerification(user),
+      };
+
+
+      // Send verifiication email
+      mailer.sendMail(mailOptions, async (error, info) => {
+        if (error) {
+          orm.remove(user);
+          await orm.flush();
+          this.error(res, 'Unable to send verification email. Please try again', error);
+        } else {
+          this.success(res, 'Successfully registered', user);
+          console.log('Email sent: ' + info.response);
+        }
+      });  
     } catch(e) {
       const error = e as DriverException;
       let message = 'A problem occured';

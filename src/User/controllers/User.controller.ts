@@ -5,7 +5,10 @@ import { User, UserInfo, UserType } from '../entities';
 // Helper
 import authHelper from '../helpers/auth.helper';
 import { findAndPaginate } from '../../helpers/pagination.helper';
+// Services
 import { validate, z } from '../../services/zod/validation';
+import { generateJwtToken } from '../../services/passport/authentication';
+import { mailer, templates } from '../../services/nodemailer';
 
 export class UserController extends CRUDController {
   index = async (req: Request, res: Response) => {
@@ -23,7 +26,7 @@ export class UserController extends CRUDController {
       .findOne(User, { id }, { populate: ['userType', 'userInfo'] });
       
     if (!user) {
-      await this.error(res, 'User not found', 404);
+      await this.success(res, 'User not found');
       return;
     }
     await this.json(res, user);
@@ -90,9 +93,30 @@ export class UserController extends CRUDController {
       userType, 
       userInfo
     })
+
+    user.token = generateJwtToken(user);
     
     await orm.persistAndFlush(user);
-    await this.success(res, 'User created successfully' + user.id, user);
+    
+    var mailOptions = {
+      from: 'admin@gmail.com',
+      to: user.email,
+      subject: 'Email Verification',
+      html: templates.emailVerification(user),
+    };
+
+
+    // Send verifiication email
+    mailer.sendMail(mailOptions, async (error, info) => {
+      if (error) {
+        orm.remove(user);
+        await orm.flush();
+        this.error(res, 'Unable to send verification email. Please try again', error);
+      } else {
+        this.success(res, 'User created successfully' + user.id, user);
+        console.log('Email sent: ' + info.response);
+      }
+    });  
   }
 
   // async update(req: Request, res: Response): Promise<void> {
@@ -110,16 +134,22 @@ export class UserController extends CRUDController {
   //   await this.success(res, 'User updated successfully');
   // }
 
-  // async delete(req: Request, res: Response): Promise<void> {
-  //   const { id } = req.params;
-  //   const user = await User.findById(id);
-  //   if (!user) {
-  //     await this.error(res, 'User not found', 404);
-  //     return;
-  //   }
-  //   await user.remove();
-  //   await this.success(res, 'User deleted successfully');
-  // }
+  delete = async (req: Request<{ id: number }>, res: Response) => {
+    const { id } = req.params;
+    const orm = await this.orm();
+    const user = await orm.findOne(User, { id });
+    if (!user) {
+      await this.error(res, 'User not found');
+      return;
+    }
+    try {
+      orm.remove(user);
+      await orm.flush()
+      return this.success(res, 'User deleted successfully');
+    } catch (e) {
+      return this.error(res, '', e)
+    }
+  }
 
   sendID = (_: Request, res: Response) => {
     res.send('ID is 3')

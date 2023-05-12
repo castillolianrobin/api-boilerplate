@@ -376,6 +376,15 @@
           "nullable": false,
           "mappedType": "string"
         },
+        "status": {
+          "name": "status",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
         "user_type_id": {
           "name": "user_type_id",
           "type": "int",
@@ -430,6 +439,16 @@
           "autoincrement": false,
           "primary": false,
           "nullable": false,
+          "length": 0,
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "datetime",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
           "length": 0,
           "mappedType": "datetime"
         }

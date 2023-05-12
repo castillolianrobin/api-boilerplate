@@ -1,7 +1,8 @@
 import {  Entity, ManyToOne, OneToOne, PrimaryKey, Property, Reference, EntityManager } from '@mikro-orm/core';
 import { UserType } from './UserType.entity';
 import { UserInfo } from './UserInfo.entity';
-
+import { SoftDeletable } from "mikro-orm-soft-delete";
+@SoftDeletable(() => User, "deletedAt", () => new Date())
 @Entity()
 export class User {
   @PrimaryKey()
@@ -15,6 +16,9 @@ export class User {
 
   @Property({ hidden: true })
   password_salt!: string;
+
+  @Property()
+  status!: string;
   
   @ManyToOne(() => UserType)
   userType!: UserType;
@@ -34,7 +38,11 @@ export class User {
   @Property({ onUpdate: () => new Date(), type: "date" })
   updatedAt = new Date();
 
+  @Property({ nullable: true })
+  deletedAt?: Date;
+
   constructor(user: UserConstructParam) {
+    this.status = 'new';
     this.email = user.email;
     this.password = user.password;
     this.password_salt = user.password_salt;

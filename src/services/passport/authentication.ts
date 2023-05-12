@@ -18,7 +18,7 @@ export { default as passport } from 'passport';
 
 // Create a function to generate a JWT token
 export function generateJwtToken(user: User, remember?: boolean): string {
-  const payload = { id: user.id };
+  const payload = { id: user.id, status: user.status };
   const secret = ENV.JWT_SECRET;
   const options: jwt.SignOptions = {
     expiresIn: remember ? '7d' : '1h', // Set the token expiration time
@@ -80,7 +80,6 @@ passport.use(new LocalStrategy({
     if (!user) {
       return done(null, false, { message: 'Incorrect email or password.' });
     }
-    
     
     const isMatch = await authHelper.validate(password, user.password, user.password_salt);
     // Incorrect password 
