@@ -38,6 +38,7 @@ jobs:
         with:
           file_name: .env
           fail_on_empty: false
+          directory: ../
           envkey_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           envkey_REMOTE_USER: ${{ secrets.SSH_USERNAME }}
           envkey_REMOTE_HOST: ${{ secrets.SSH_HOST }}
