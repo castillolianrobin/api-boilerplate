@@ -34,26 +34,28 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Create .env file
-        uses: ozaytsev86/create-env-file@v1
+        uses: SpicyPizza/create-envfile@v1.3
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          APP_NAME: ${{ secrets.APP_NAME }}
-          APP_DIR: ${{ secrets.EC2_DIR }}
-          APP_PORT: 8080
-          NODE_ENV: production
+          file_name: .env
+          fail_on_empty: false
+          envkey_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          envkey_REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+          envkey_REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          envkey_APP_NAME: ${{ secrets.APP_NAME }}
+          envkey_APP_DIR: ${{ secrets.EC2_DIR }}
+          envkey_APP_PORT: 8080
+          envkey_NODE_ENV: production
           # DATABASE VARIABLES
-          DB_HOST: ${{ secrets.DATABASE_HOST }}
-          DB_PORT: ${{ secrets.DATABASE_PORT }}
-          DB_USER: ${{ secrets.DATABASE_USER }}
-          DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          DB_NAME: ${{ secrets.DATABASE_NAME }}
+          envkey_DB_HOST: ${{ secrets.DATABASE_HOST }}
+          envkey_DB_PORT: ${{ secrets.DATABASE_PORT }}
+          envkey_DB_USER: ${{ secrets.DATABASE_USER }}
+          envkey_DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          envkey_DB_NAME: ${{ secrets.DATABASE_NAME }}
           # SMTP VARIABLE   
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          envkey_SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          envkey_SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          envkey_SMTP_USER: ${{ secrets.SMTP_USER }}
+          envkey_SMTP_PASS: ${{ secrets.SMTP_PASS }}
       
       - name: Install dependencies
         run: npm ci --include=dev
