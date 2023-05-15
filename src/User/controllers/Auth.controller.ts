@@ -57,12 +57,18 @@ export class AuthController extends APIController {
     const { data, errors, success } = validate(req.body, z.object({
       email: z.string().email(),
       password: z.string().min(6).max(50),
+      verify_password: z.string(),
       userInfo: z.object({
         firstName: z.string(),
         lastName: z.string(),
         middleName: z.string().optional(),
         birthday: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
       }),
+    })
+    // Add validation for matching password
+    .superRefine((data, ctx) => {
+      if (data.verify_password !== data.password)
+        ctx.addIssue({code: "custom", message: "The passwords did not match"});
     }));
 
     if (!success)
