@@ -10,14 +10,15 @@ env:
   REMOTE_HOST: ${{ secrets.SSH_HOST }}
   APP_NAME: ${{ secrets.APP_NAME }}
   APP_DIR: ${{ secrets.EC2_DIR }}
+  CLIENT_URL: ${{ secrets.CLIENT_URL }}
   APP_PORT: 8080
   NODE_ENV: production
   # DATABASE VARIABLES
-  DB_HOST: ${{ secrets.DATABASE_HOST }}
-  DB_PORT: ${{ secrets.DATABASE_PORT }}
-  DB_USER: ${{ secrets.DATABASE_USER }}
-  DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-  DB_NAME: ${{ secrets.DATABASE_NAME }}
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_PORT: ${{ secrets.DB_PORT }}
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  DB_NAME: ${{ secrets.DB_NAME }}
   # SMTP VARIABLE   
   SMTP_HOST: ${{ secrets.SMTP_HOST }}
   SMTP_PORT: ${{ secrets.SMTP_PORT }}
@@ -63,25 +64,6 @@ jobs:
           echo "ls -a ${{ github.workspace }}"
           ls -a ${{ github.workspace }}
         shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          APP_NAME: ${{ secrets.APP_NAME }}
-          APP_DIR: ${{ secrets.EC2_DIR }}
-          APP_PORT: 8080
-          NODE_ENV: production
-          # DATABASE VARIABLES
-          DB_HOST: ${{ secrets.DATABASE_HOST }}
-          DB_PORT: ${{ secrets.DATABASE_PORT }}
-          DB_USER: ${{ secrets.DATABASE_USER }}
-          DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          DB_NAME: ${{ secrets.DATABASE_NAME }}
-          # SMTP VARIABLE   
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
       
       - name: Install dependencies
         run: npm ci --include=dev
