@@ -18,7 +18,7 @@ export { default as passport } from 'passport';
 
 // Create a function to generate a JWT token
 export function generateJwtToken(user: User, remember?: boolean): string {
-  const payload = { id: user.id, status: user.status };
+  const payload = { id: user.id };
   const secret = ENV.JWT_SECRET;
   const options: jwt.SignOptions = {
     expiresIn: remember ? '7d' : '1h', // Set the token expiration time
@@ -32,11 +32,13 @@ export function authMiddleware() {
   return passport.authenticate('jwt', { session: false })
 }
 
+// Login Function
 export function login(req: Request, res: Response, calback: (err: any, user: User, info: { message: string })=>void) {
   return passport.authenticate('local', calback)(req, res);
 }
 
-export function logout(req: Request, res: Response, calback: (err: any, user: User)=>void) {
+// Logout Function
+export function authenticateToken(req: Request, res: Response, calback: (err: any, user: User)=>void) {
   return passport.authenticate('jwt', calback)(req, res);
 }
 
@@ -49,13 +51,18 @@ const options = {
 passport.use(new JwtStrategy(options, async (payload, done) => {
   try {
     const orm = (await getOrm()).em.fork();
+    
     const user = await orm.findOne(
       User, 
       { id: payload.id },
       { cache: 1000*60*60 }, //Cache Auth for 1 hour
     );
     if (user) {
-      return done(null, user);
+      if (user.status === 'new') {
+        return done('Unverified', User);
+      } else {
+        return done(null, user);
+      }
     } else {
       return done(null, false);
     }
@@ -86,13 +93,21 @@ passport.use(new LocalStrategy({
     if (!isMatch) {      
       return done(null, false, { message: 'Incorrect email or password.' });
     }
+    // Unverified
+    if (user.status === 'new') {
+      logger.info('Login Attempt Unverified', req)
+      return done(true, user, { message: 'Account not verified yet. Please check your email'});        
+    }
+    
     const remember = req.body.remember;
     user.token = generateJwtToken(user, remember);
     user.tokenExpiration = new Date(Date.now() + (60 * 60 * 1000 * (remember ? (24 * 7) : 1)) );
     await orm.persistAndFlush(user);
     logger.info('Login Attempt Success', req)
     return done(null, user, { message: 'Logged in successfully.' });
-  } catch (err) {
+  } 
+  // Generic Errors
+  catch (err) {
     logger.info('Login Attempt Error', req)
     logger.error('Login Attempt Error', req)
     return done(err);

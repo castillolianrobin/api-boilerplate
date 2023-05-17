@@ -18,7 +18,7 @@ export class User {
   password_salt!: string;
 
   @Property()
-  status!: string;
+  status!: UserStatus;
   
   @ManyToOne(() => UserType)
   userType!: UserType;
@@ -55,3 +55,5 @@ export class User {
 /** __TYPE DEFINITIONS__ */
 
 interface UserConstructParam { email: string, password: string, password_salt: string, userType: UserType, userInfo?: UserInfo, }
+
+export type UserStatus = 'new' | 'verified' | 'disabled'; 

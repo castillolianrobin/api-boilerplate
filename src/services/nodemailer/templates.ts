@@ -10,7 +10,7 @@ export const emailVerification = (user: User) => `
       You registered an account on ${ENV.APP_NAME}, before being able to use your account you need to verify that this is your email address by clicking here: 
     </p>
     <a 
-      href="${ENV.CLIENT_URL}/verify/?token=${encodeURI(user.token || '')}&email=${encodeURI(user.email)}"
+      href="${ENV.CLIENT_URL}/verify?token=${encodeURI(user.token || '')}&email=${encodeURI(user.email)}"
     >
       Verify Email
     </a>

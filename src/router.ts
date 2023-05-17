@@ -5,6 +5,6 @@ import { authMiddleware } from './services/passport/authentication';
 
 export default function router(app: Application): void {
   app.use(authRoutes);
-  app.use('/user', userRoutes);
+  app.use('/user', authMiddleware(), userRoutes);
   app.use('/product', productRoutes);  
 }
