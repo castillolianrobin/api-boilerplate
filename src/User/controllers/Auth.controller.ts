@@ -27,9 +27,9 @@ export class AuthController extends APIController {
     // Login Validation
     login(req, res, (err, user, info)=>{
       if (err || !user)
-        return this.error(res, info.message, data.email);
+        return this.error(res, info?.message, data.email);
       else {
-        return this.success(res, info.message, user)
+        return this.success(res, info?.message, user)
       }
     });
   }

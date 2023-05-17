@@ -110,7 +110,7 @@ passport.use(new LocalStrategy({
   catch (err) {
     logger.info('Login Attempt Error', req)
     logger.error('Login Attempt Error', req)
-    return done(err);
+    return done(err, false, { message: 'Server Error: ' + err });
   }
 }));
 
