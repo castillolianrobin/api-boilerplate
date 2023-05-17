@@ -95,8 +95,7 @@ passport.use(new LocalStrategy({
     }
     // Unverified
     if (user.status === 'new') {
-      logger.info('Login Attempt Unverified', req)
-      return done(true, user, { message: 'Account not verified yet. Please check your email'});        
+      return done(null, false, { message: 'Account not verified yet. Please check your email.'});        
     }
     
     const remember = req.body.remember;
